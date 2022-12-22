@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Maintenance;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,12 +18,18 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        $maintenances = Maintenance::with(['vehicle'])->get();
+        $maintenances = Maintenance::with(['user', 'vehicle'])
+            ->where('user_id', Auth::user()->id)->get();
 
         $vehicles = Vehicle::with(['brand', 'vehicleType'])->get();
         
         // return response()->json(['data'=> $maintenance, 'vehicle' => $vehicle])
-        //  return dd($maintenances);
+        // return dd($maintenances);
+
+        $dateNow = Carbon::now();
+
+        // return dd($maintenances);
+
         return Inertia::render('Maintenance/Index', [
             'maintenances' => $maintenances,
             'vehicles' => $vehicles

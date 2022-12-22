@@ -40,11 +40,13 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         
                         <p class="w-full text-lg text-left text-gray-500 dark:text-gray-400" v-if="maintenances.length === 0">Nenhuma manutenção foi encontrada!</p>
 
                         <template class="" v-for="maintenance in maintenances" :key="maintenance.id">
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                        
+                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" v-if="compareDate(maintenance.date) == true">
 
                                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ maintenance.description }}
@@ -143,51 +145,23 @@
         });
     }
 
+    function compareDate (dateMaintenance) {
+
+        var dateNow = moment()
+        var dateInSevenDays = moment(dateNow).add(7, 'days')
+
+        var dateMaintenanceMoment = moment(dateMaintenance)
+
+        if((dateMaintenanceMoment.format('DD/MM/YY') >= dateNow.format('DD/MM/YY')) && (dateMaintenanceMoment.format('DD/MM/YY') <= dateInSevenDays.format('DD/MM/YY'))) {
+            return true
+        }
+        else
+            return false
+    }
+
+
     const formatDate = (date) => {
         return moment(date).format('DD/MM/YY');
     }
-
-    // export default {
-    //     components: {
-    //         Header: Header,
-    //         PrimaryButton: PrimaryButton,
-    //     },
-    //     methods: {
-    //         deleteMaintenance: 
-    //         function deleteMaintenance(id) {
-    //             Swal.fire({
-    //                 title: "Você tem certeza?",
-    //                 text: "A manutenção será excluída definitivamente!",
-    //                 icon: "warning",
-    //                 showCancelButton: true,
-    //                 confirmButtonColor: "#3085d6",
-    //                 cancelButtonText: "Cancelar",
-    //                 confirmButtonText: "Sim, excluir!",
-    //                 }).then((result) => {
-    //                     if (result.value) {
-    //                     form.delete(route("maintenances.destroy", id), {
-    //                         onSuccess: () =>
-    //                         Swal.fire("Excluído", "Manutenção removida com sucesso!", "success"),
-    //                         onError: () =>
-    //                         Swal.fire("Falhou!", "Algo de errado aconteceu.", "Warning"),
-    //                     });
-    //                     }
-    //             });
-    //         }
-    //     },
-    //     setup() {
-
-    //         const { maintenances, maintenancesVehicle, getMaintenance } = useMaintenance()
-
-    //         onMounted(getMaintenance)
-
-    //         console.log('maintenance na view = ', maintenances)
-
-    //         return {
-    //             maintenances,
-    //             maintenancesVehicle
-    //         }
-    //     }
-    // }
 
   </script>

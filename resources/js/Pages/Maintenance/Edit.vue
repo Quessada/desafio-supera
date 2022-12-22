@@ -74,10 +74,14 @@ import { useForm } from "@inertiajs/inertia-vue3";
 import Header from "../../Components/Header.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import moment from "moment";
 
 
 const props = defineProps(["vehicles", "maintenance"]);
 
+const formatDate = (date) => {
+        return moment(date).format('DD/MM/YY');
+    }
 
 const form = useForm({
   description: props.maintenance.description,
@@ -86,8 +90,7 @@ const form = useForm({
   date: props.maintenance.date,
 });
 
-function formatDate(date) {
-  return date && new Date(date.getTime()-(date.getTimezoneOffset()*60*1000)).toISOString().split('T')[0]
-}
+
+
 
 </script>
