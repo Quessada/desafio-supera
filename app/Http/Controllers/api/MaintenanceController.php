@@ -18,9 +18,15 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Maintenance/Index', [
-            'maintenances' => Maintenance::all(),
-        ]);      
+        // return Inertia::render('Maintenance/Index', [
+        //     'maintenances' => Maintenance::with(['vehicle'])->get(),
+        // ]);   
+        
+        $maintenance = Maintenance::with(['vehicle'])->get();
+
+        $vehicle = Vehicle::with(['brand', 'vehicleType'])->get();
+        
+        return response()->json(['data'=> $maintenance, 'vehicle' => $vehicle]);
     }
 
     /**

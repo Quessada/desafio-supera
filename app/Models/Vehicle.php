@@ -24,6 +24,11 @@ class Vehicle extends Model
         return $this->belongsTo(VehicleType::class, 'type_id');
     }
 
+    public function maintenance()
+    {
+        return $this->belongsTo(Maintenance::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

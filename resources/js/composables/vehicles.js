@@ -6,7 +6,7 @@ export default function useVehicles () {
     const vehicles = ref([])
 
     const getVehicles = async () => {
-        let response = await axios.get('/api/vehicles')
+        let response = await axios.get('/vehicles')
         console.log('vehicles response.data = ', response.data)
 
         vehicles.value = response.data.data;

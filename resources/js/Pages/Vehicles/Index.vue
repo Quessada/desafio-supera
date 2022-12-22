@@ -39,7 +39,7 @@
                     </thead>
                     <tbody>
                         
-                        <p class="w-full text-lg text-left text-gray-500 dark:text-gray-400" v-if="vehicles.length === 0">Nenhum veículo foi encontrado!</p>
+                        <p class="ml-2 w-full text-lg text-left text-gray-500 dark:text-gray-400" v-if="vehicles.length === 0">Nenhum veículo cadastrado!</p>
 
                         <template class="" v-for="vehicle in vehicles" :key="vehicle.id">
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -86,7 +86,7 @@
     </div>
   </template>
   
-  <script lang="ts">
+  <script setup lang="ts">
   import PrimaryButton from "@/Components/PrimaryButton.vue";
   import { useForm, Head } from "@inertiajs/inertia-vue3";
 
@@ -95,11 +95,10 @@
   import { onMounted } from "vue";
 
   import { Link } from "@inertiajs/inertia-vue3";
-//   import route from "vendor/tightenco/ziggy/src/js";
   import Swal from "sweetalert2/dist/sweetalert2";
   import "sweetalert2/dist/sweetalert2.css";
 
-  //defineProps(["vehicles"]);
+  defineProps(["vehicles"]);
 
   const form = useForm({
     model: "",
@@ -111,50 +110,67 @@
     user_id: "",
     });
 
-    
-
-    export default {
-        components: {
-            Header: Header,
-            Swal: Swal,
-            PrimaryButton: PrimaryButton,
-            form: form
-        },
-        methods: {
-            deleteVehicle: 
-                function deleteVehicle(id) {
-                    Swal.fire({
-                        title: "Você tem certeza?",
-                        text: "O veículo será excluído definitivamente!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonText: "Cancelar",
-                        confirmButtonText: "Sim, excluir!",
-                        }).then((result) => {
-                            if (result.value) {
-                            form.delete(route("vehicles.destroy", id), {
-                                onSuccess: () =>
-                                Swal.fire("Excluído", "Veículo removido com sucesso!", "success"),
-                                onError: () =>
-                                Swal.fire("Falhou!", "Algo de errado aconteceu.", "Warning"),
-                            });
-                            }
-                    });
+    function deleteVehicle(id) {
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: "O veículo será excluído definitivamente!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Sim, excluir!",
+            }).then((result) => {
+                if (result.value) {
+                form.delete(route("vehicles.destroy", id), {
+                    onSuccess: () =>
+                    Swal.fire("Excluído", "Veículo removido com sucesso!", "success"),
+                    onError: () =>
+                    Swal.fire("Falhou!", "Algo de errado aconteceu.", "Warning"),
+                });
                 }
-        },
-        setup() {
-
-            const { vehicles, getVehicles } = useVehicles()
-
-            onMounted(getVehicles)
-
-            console.log('vehicles na view = ', vehicles)
-
-            return {
-                vehicles,
-            }
-        }
+        });
     }
+
+    // export default {
+    //     components: {
+    //         Header: Header,
+    //         PrimaryButton: PrimaryButton,
+    //     },
+    //     methods: {
+    //         deleteVehicle: 
+    //             function deleteVehicle(id) {
+    //                 Swal.fire({
+    //                     title: "Você tem certeza?",
+    //                     text: "O veículo será excluído definitivamente!",
+    //                     icon: "warning",
+    //                     showCancelButton: true,
+    //                     confirmButtonColor: "#3085d6",
+    //                     cancelButtonText: "Cancelar",
+    //                     confirmButtonText: "Sim, excluir!",
+    //                     }).then((result) => {
+    //                         if (result.value) {
+    //                         form.delete(route("vehicles.destroy", id), {
+    //                             onSuccess: () =>
+    //                             Swal.fire("Excluído", "Veículo removido com sucesso!", "success"),
+    //                             onError: () =>
+    //                             Swal.fire("Falhou!", "Algo de errado aconteceu.", "Warning"),
+    //                         });
+    //                         }
+    //                 });
+    //             }
+    //     },
+    //     setup() {
+
+    //         const { vehicles, getVehicles } = useVehicles()
+
+    //         onMounted(getVehicles)
+
+    //         console.log('vehicles na view = ', vehicles)
+
+    //         return {
+    //             vehicles,
+    //         }
+    //     }
+    // }
 
   </script>

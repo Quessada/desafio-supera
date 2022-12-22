@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
-use App\Models\Vehicle;
-use App\Models\VehicleType;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class VehicleController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +15,11 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        // return dd(Auth::user()->id);
-        $vehicles = Vehicle::with([
-            'user',
-            'brand', 
-            'vehicleType'
-        ])->where('user_id', Auth::user()->id)->get(); 
+        $brands = Brand::orderBy('name')->get();
 
-        // return dd($vehicles);
-        return Inertia::render('Vehicles/Index', [
-            'vehicles' => $vehicles,
-        ]); 
-
+        return Inertia::render('Brand/Index', [
+            'brands' => $brands,
+        ]);    
     }
 
     /**
@@ -39,11 +29,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Vehicles/Create', [            
-            'vehicle_types' => VehicleType::all(),
-            'vehicle_brands' => Brand::orderBy('name')->get(),
-            'user' => Auth::user(),
-        ]);
+        return Inertia::render('Brand/Create');
     }
 
     /**
@@ -54,9 +40,9 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        Vehicle::create($request->all());
+        Brand::create($request->all());
 
-        return redirect(route('vehicles.index'));
+        return redirect(route('brands.index'));
     }
 
     /**
@@ -78,13 +64,11 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        
-        return Inertia::render('Vehicles/Edit', [            
-            'vehicle' => $vehicle,
-            'vehicle_types' => VehicleType::all(),
-            'vehicle_brands' => Brand::orderBy('name')->get(),
-        ]);
+        $brand = Brand::findOrFail($id);
+
+        return Inertia::render('Brand/Edit', [
+            'brand' => $brand,
+        ]);    
     }
 
     /**
@@ -96,10 +80,10 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        $vehicle->update($request->all());
+        $brand = Brand::findOrFail($id);
+        $brand->update($request->all());
 
-        return redirect(route('vehicles.index'));
+        return redirect(route('brands.index'));
     }
 
     /**
@@ -110,7 +94,7 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        $vehicle->delete();
+        $brand = Brand::findOrFail($id);
+        $brand->delete();
     }
 }

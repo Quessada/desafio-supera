@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use Illuminate\Http\Request;
-use App\Models\Vehicle;
 use App\Models\VehicleType;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class VehicleController extends Controller
+class VehicleTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,18 +15,11 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        // return dd(Auth::user()->id);
-        $vehicles = Vehicle::with([
-            'user',
-            'brand', 
-            'vehicleType'
-        ])->where('user_id', Auth::user()->id)->get(); 
+        $vehicleTypes = VehicleType::orderBy('name')->get();
 
-        // return dd($vehicles);
-        return Inertia::render('Vehicles/Index', [
-            'vehicles' => $vehicles,
-        ]); 
-
+        return Inertia::render('VehicleTypes/Index', [
+            'vehicleTypes' => $vehicleTypes,
+        ]);
     }
 
     /**
@@ -39,11 +29,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Vehicles/Create', [            
-            'vehicle_types' => VehicleType::all(),
-            'vehicle_brands' => Brand::orderBy('name')->get(),
-            'user' => Auth::user(),
-        ]);
+        return Inertia::render('VehicleTypes/Create');
     }
 
     /**
@@ -54,9 +40,9 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        Vehicle::create($request->all());
+        VehicleType::create($request->all());
 
-        return redirect(route('vehicles.index'));
+        return redirect(route('vehicleTypes.index'));
     }
 
     /**
@@ -78,13 +64,11 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        
-        return Inertia::render('Vehicles/Edit', [            
-            'vehicle' => $vehicle,
-            'vehicle_types' => VehicleType::all(),
-            'vehicle_brands' => Brand::orderBy('name')->get(),
-        ]);
+        $vehicleType = VehicleType::findOrFail($id);
+
+        return Inertia::render('VehicleTypes/Edit', [
+            'vehicleType' => $vehicleType,
+        ]);    
     }
 
     /**
@@ -96,10 +80,11 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        $vehicle->update($request->all());
+        $vehicleType = VehicleType::findOrFail($id);
+        $vehicleType->update($request->all());
 
-        return redirect(route('vehicles.index'));
+        return redirect(route('vehicleTypes.index'));
+
     }
 
     /**
@@ -110,7 +95,7 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        $vehicle = Vehicle::findOrFail($id);
-        $vehicle->delete();
+        $vehicleType = VehicleType::findOrFail($id);
+        $vehicleType->delete();
     }
 }

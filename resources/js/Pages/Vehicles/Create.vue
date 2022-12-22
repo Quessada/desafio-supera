@@ -29,6 +29,8 @@
             })
           ">
 
+            <input type="hidden" id="user_id" name="user_id" :value=" $page.props.auth.user.id "/>
+            
             <div>
               <InputLabel for="model" value="Modelo" />
               <TextInput
@@ -54,7 +56,7 @@
               <InputLabel for="type_id" value="Tipo" />
               <select v-model="form.type_id" class="mt-1 block w-full">
                 <option value="" disabled selected>-- Selecione um tipo --</option>
-                <option v-for="vtype in vehicle_types" :key="vtype" :value="vtype.id" :selected="vtype.id"> {{ vtype.name }} </option>
+                <option v-for="vtype in vehicle_types" :key="vtype.id" :value="vtype.id" :selected="vtype.id"> {{ vtype.name }} </option>
               </select>
               <InputError class="mt-2" :message="form.errors.type_id" />
             </div>
@@ -95,7 +97,7 @@
               <InputError class="mt-2" :message="form.errors.year" />
             </div>
 
-            <PrimaryButton class="mt-4">Criar</PrimaryButton>
+            <PrimaryButton class="mt-4">Cadastrar</PrimaryButton>
 
           </form>
           
@@ -107,17 +109,20 @@
   </template>
   
   <script setup lang="ts">
+
   import PrimaryButton from "@/Components/PrimaryButton.vue";
-  import NavLink from "@/Components/NavLink.vue";
-  import { useForm, Head } from "@inertiajs/inertia-vue3";
+  import { useForm } from "@inertiajs/inertia-vue3";
 
   import Header from "../../Components/Header.vue";
-  import Vehicle from "../Vehicles/Vehicle.vue";
   import TextInput from "@/Components/TextInput.vue";
   import InputLabel from "@/Components/InputLabel.vue";
 
 
-  defineProps(["vehicle_brands", "vehicle_types"]);
+
+  // const user = document.getElementById('user_id').val
+
+  const props = defineProps(["vehicle_brands", "vehicle_types", "user"]);
+
 
   const form = useForm({
     model: "",
@@ -126,7 +131,7 @@
     year: "",
     plate: "",
     version: "",
-    user_id: "",
-    });
+    user_id: props.user.id,
+  });
 
   </script>

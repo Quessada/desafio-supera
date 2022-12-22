@@ -52,11 +52,11 @@
         
           <div class="mt-4">
               <InputLabel for="date" value="Data da Manutenção" />
-              <input type="date" v-model="form.date" name="date" id="date">
+              <input type="date" name="date" id="date" v-model="form.date">
               <InputError class="mt-2" :message="form.errors.date" />
           </div>
 
-          <PrimaryButton class="mt-4">Cadastrar</PrimaryButton>
+          <PrimaryButton class="mt-4">Criar</PrimaryButton>
 
         </form>
         
@@ -69,21 +69,25 @@
 
 <script setup lang="ts">
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { useForm, Head, useRemember } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/inertia-vue3";
 
 import Header from "../../Components/Header.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 
 
-const props = defineProps(["vehicles", "user"]);
+const props = defineProps(["vehicles", "maintenance"]);
 
 
 const form = useForm({
-  description: "",
-  vehicle_id: "",
-  user_id: props.user.id,
-  date: "",
-  });
+  description: props.maintenance.description,
+  vehicle_id: props.maintenance.vehicle_id,
+  user_id: props.maintenance.user_id,
+  date: props.maintenance.date,
+});
+
+function formatDate(date) {
+  return date && new Date(date.getTime()-(date.getTimezoneOffset()*60*1000)).toISOString().split('T')[0]
+}
 
 </script>

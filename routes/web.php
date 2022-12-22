@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,7 +41,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('vehicles', VehicleController::class)->middleware(['auth']);
-Route::resource('maintenance', MaintenanceController::class);
 
+Route::resource('maintenances', MaintenanceController::class)->middleware(['auth']);
+
+Route::resource('brands', BrandController::class)->middleware(['auth']);
+
+Route::resource('vehicleTypes', VehicleTypeController::class)->middleware(['auth']);
+
+
+
+Route::resource('users', UserController::class)->middleware(['auth']);
 
 require __DIR__.'/auth.php';

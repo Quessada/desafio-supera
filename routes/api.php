@@ -23,4 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('vehicles', VehicleController::class);
 
-Route::resource('maintenance', MaintenanceController::class);
+Route::resource('maintenances', MaintenanceController::class);
