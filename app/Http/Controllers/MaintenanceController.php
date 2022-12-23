@@ -67,7 +67,19 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        Maintenance::create($request->all());
+        $validated = $request->validate(rules: [
+            'description' => 'required|string|max:255',
+            'vehicle_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'date' => 'required|date',
+        ], customAttributes: [
+            'description' => 'descrição',
+            'vehicle_id' => 'veículo',
+            'user_id' => 'usuário',
+            'date' => 'data',
+        ]);
+
+        Maintenance::create($validated);
 
         return redirect(route('maintenances.index'));
     }
@@ -112,8 +124,20 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate(rules: [
+            'description' => 'required|string|max:255',
+            'vehicle_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'date' => 'required|date',
+        ], customAttributes: [
+            'description' => 'descrição',
+            'vehicle_id' => 'veículo',
+            'user_id' => 'usuário',
+            'date' => 'data',
+        ]);
+
         $maintenance = Maintenance::findOrFail($id);
-        $maintenance->update($request->all());
+        $maintenance->update($validated);
         
         return redirect(route('maintenances.index'));
     }

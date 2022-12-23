@@ -40,7 +40,13 @@ class VehicleTypeController extends Controller
      */
     public function store(Request $request)
     {
-        VehicleType::create($request->all());
+        $validated = $request->validate(rules: [
+            'name' => 'required|string|max:255',
+        ], customAttributes: [
+            'name' => 'tipo',
+        ]);
+
+        VehicleType::create($validated);
 
         return redirect(route('vehicleTypes.index'));
     }
@@ -80,8 +86,15 @@ class VehicleTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $validated = $request->validate(rules: [
+            'name' => 'required|string|max:255',
+        ], customAttributes: [
+            'name' => 'tipo',
+        ]);
+
         $vehicleType = VehicleType::findOrFail($id);
-        $vehicleType->update($request->all());
+        $vehicleType->update($validated);
 
         return redirect(route('vehicleTypes.index'));
 

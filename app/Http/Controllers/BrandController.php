@@ -40,7 +40,15 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        Brand::create($request->all());
+        $validated = $request->validate(rules: [
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:15',
+        ], customAttributes: [
+            'name' => 'nome da marca',
+            'code' => 'código',
+        ]);
+
+        Brand::create($validated);
 
         return redirect(route('brands.index'));
     }
@@ -80,8 +88,16 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate(rules: [
+            'name' => 'required|string|max:255',
+            'code' => 'required|string|max:15',
+        ], customAttributes: [
+            'name' => 'nome da marca',
+            'code' => 'código',
+        ]);
+
         $brand = Brand::findOrFail($id);
-        $brand->update($request->all());
+        $brand->update($validated);
 
         return redirect(route('brands.index'));
     }

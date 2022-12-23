@@ -81,6 +81,7 @@
                 class="mt-1 block w-full"
                 v-model="form.plate"
                 autofocus
+                
               />
               <InputError class="mt-2" :message="form.errors.plate" />
             </div>
@@ -116,7 +117,7 @@
   import Header from "../../Components/Header.vue";
   import TextInput from "@/Components/TextInput.vue";
   import InputLabel from "@/Components/InputLabel.vue";
-
+  import InputError from "@/Components/InputError.vue";
 
 
   // const user = document.getElementById('user_id').val

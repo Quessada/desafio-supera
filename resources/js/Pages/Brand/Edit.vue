@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
+import InputError from "@/Components/InputError.vue";
 
 import Header from "../../Components/Header.vue";
 import TextInput from "@/Components/TextInput.vue";

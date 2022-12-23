@@ -54,7 +54,25 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        Vehicle::create($request->all());
+        $validated = $request->validate(rules: [
+            'model' => 'required|string|max:255',
+            'version' => 'required|max:255',
+            'plate' => 'required|string|max:9',
+            'brand_id' => 'required|integer',
+            'type_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'year' => 'required|string|max:9',
+        ], customAttributes: [
+            'model' => 'modelo',
+            'version' => 'versão',
+            'plate' => 'placa',
+            'brand_id' => 'marca',
+            'type_id' => 'tipo do veículo',
+            'user_id' => 'usuário',
+            'year' => 'ano',
+        ]);
+
+        Vehicle::create($validated);
 
         return redirect(route('vehicles.index'));
     }
@@ -96,8 +114,26 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate(rules: [
+            'model' => 'required|string|max:255',
+            'version' => 'required|max:255',
+            'plate' => 'required|string|max:9',
+            'brand_id' => 'required|integer',
+            'type_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'year' => 'required|string|max:9',
+        ], customAttributes: [
+            'model' => 'modelo',
+            'version' => 'versão',
+            'plate' => 'placa',
+            'brand_id' => 'marca',
+            'type_id' => 'tipo do veículo',
+            'user_id' => 'usuário',
+            'year' => 'ano',
+        ]);
+
         $vehicle = Vehicle::findOrFail($id);
-        $vehicle->update($request->all());
+        $vehicle->update($validated);
 
         return redirect(route('vehicles.index'));
     }
