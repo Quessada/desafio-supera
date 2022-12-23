@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Maintenance;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class MaintenanceController extends Controller
@@ -20,13 +19,13 @@ class MaintenanceController extends Controller
     {
         // return Inertia::render('Maintenance/Index', [
         //     'maintenances' => Maintenance::with(['vehicle'])->get(),
-        // ]);   
-        
+        // ]);
+
         $maintenance = Maintenance::with(['vehicle'])->get();
 
         $vehicle = Vehicle::with(['brand', 'vehicleType'])->get();
-        
-        return response()->json(['data'=> $maintenance, 'vehicle' => $vehicle]);
+
+        return response()->json(['data' => $maintenance, 'vehicle' => $vehicle]);
     }
 
     /**
@@ -37,9 +36,9 @@ class MaintenanceController extends Controller
     public function create()
     {
         // return dd($teste = Vehicle::all());
-        return Inertia::render('Maintenance/Create', [            
+        return Inertia::render('Maintenance/Create', [
             'vehicles' => Vehicle::all(),
-        ]);    
+        ]);
     }
 
     /**
@@ -52,6 +51,7 @@ class MaintenanceController extends Controller
     {
         // return dd($request);
         $user = auth()->user();
+
         return dd($user);
         Maintenance::create($request->all(), $user->id);
     }

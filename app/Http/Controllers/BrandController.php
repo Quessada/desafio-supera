@@ -19,7 +19,7 @@ class BrandController extends Controller
 
         return Inertia::render('Brand/Index', [
             'brands' => $brands,
-        ]);    
+        ]);
     }
 
     /**
@@ -76,7 +76,7 @@ class BrandController extends Controller
 
         return Inertia::render('Brand/Edit', [
             'brand' => $brand,
-        ]);    
+        ]);
     }
 
     /**

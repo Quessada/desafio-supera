@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
-use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -21,15 +21,14 @@ class VehicleController extends Controller
         // return dd(Auth::user()->id);
         $vehicles = Vehicle::with([
             'user',
-            'brand', 
-            'vehicleType'
-        ])->where('user_id', Auth::user()->id)->get(); 
+            'brand',
+            'vehicleType',
+        ])->where('user_id', Auth::user()->id)->get();
 
         // return dd($vehicles);
         return Inertia::render('Vehicles/Index', [
             'vehicles' => $vehicles,
-        ]); 
-
+        ]);
     }
 
     /**
@@ -39,7 +38,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Vehicles/Create', [            
+        return Inertia::render('Vehicles/Create', [
             'vehicle_types' => VehicleType::all(),
             'vehicle_brands' => Brand::orderBy('name')->get(),
             'user' => Auth::user(),
@@ -97,8 +96,8 @@ class VehicleController extends Controller
     public function edit($id)
     {
         $vehicle = Vehicle::findOrFail($id);
-        
-        return Inertia::render('Vehicles/Edit', [            
+
+        return Inertia::render('Vehicles/Edit', [
             'vehicle' => $vehicle,
             'vehicle_types' => VehicleType::all(),
             'vehicle_brands' => Brand::orderBy('name')->get(),

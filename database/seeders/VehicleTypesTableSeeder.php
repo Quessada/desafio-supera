@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,16 +16,16 @@ class VehicleTypesTableSeeder extends Seeder
     {
         DB::table('vehicle_types')->delete();
 
-        $types = array(
-          array('id' => 1,'name' => 'Hatch'),
-          array('id' => 2,'name' => 'Sedan'),
-          array('id' => 3,'name' => 'MPV'),
-          array('id' => 4,'name' => 'SUV'),
-          array('id' => 5,'name' => 'Cross'),
-          array('id' => 6,'name' => 'Coupe'),
-          array('id' => 7,'name' => 'Conversível'),
-        );
-        
+        $types = [
+            ['id' => 1, 'name' => 'Hatch'],
+            ['id' => 2, 'name' => 'Sedan'],
+            ['id' => 3, 'name' => 'MPV'],
+            ['id' => 4, 'name' => 'SUV'],
+            ['id' => 5, 'name' => 'Cross'],
+            ['id' => 6, 'name' => 'Coupe'],
+            ['id' => 7, 'name' => 'Conversível'],
+        ];
+
         DB::table('vehicle_types')->insert($types);
     }
 }

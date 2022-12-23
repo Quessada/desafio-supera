@@ -22,7 +22,7 @@ class MaintenanceController extends Controller
             ->where('user_id', Auth::user()->id)->get();
 
         $vehicles = Vehicle::with(['brand', 'vehicleType'])->get();
-        
+
         // return response()->json(['data'=> $maintenance, 'vehicle' => $vehicle])
         // return dd($maintenances);
 
@@ -32,8 +32,8 @@ class MaintenanceController extends Controller
 
         return Inertia::render('Maintenance/Index', [
             'maintenances' => $maintenances,
-            'vehicles' => $vehicles
-        ]);    
+            'vehicles' => $vehicles,
+        ]);
     }
 
     /**
@@ -48,15 +48,14 @@ class MaintenanceController extends Controller
 
         $vehicles = Vehicle::with([
             'user',
-            'brand', 
-            'vehicleType'
-        ])->where('user_id', Auth::user()->id)->get(); 
-
+            'brand',
+            'vehicleType',
+        ])->where('user_id', Auth::user()->id)->get();
 
         return Inertia::render('Maintenance/Create', [
             'vehicles' => $vehicles,
             'user' => Auth::user(),
-        ]);    
+        ]);
     }
 
     /**
@@ -105,11 +104,11 @@ class MaintenanceController extends Controller
     {
         $maintenance = Maintenance::findOrFail($id);
 
-        $vehicles = Vehicle::with('user')->where('user_id', Auth::user()->id)->get(); 
+        $vehicles = Vehicle::with('user')->where('user_id', Auth::user()->id)->get();
 
         // return dd($maintenance);
 
-        return Inertia::render('Maintenance/Edit', [            
+        return Inertia::render('Maintenance/Edit', [
             'vehicles' => $vehicles,
             'maintenance' => $maintenance,
         ]);
@@ -138,7 +137,7 @@ class MaintenanceController extends Controller
 
         $maintenance = Maintenance::findOrFail($id);
         $maintenance->update($validated);
-        
+
         return redirect(route('maintenances.index'))->with('message', 'success');
     }
 

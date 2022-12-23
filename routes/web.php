@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\MaintenanceController;
-use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +46,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('brands', BrandController::class);
     Route::resource('vehicleTypes', VehicleTypeController::class);
 });
-
 
 Route::resource('users', UserController::class)->middleware(['auth']);
 

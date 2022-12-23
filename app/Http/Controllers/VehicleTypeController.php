@@ -74,7 +74,7 @@ class VehicleTypeController extends Controller
 
         return Inertia::render('VehicleTypes/Edit', [
             'vehicleType' => $vehicleType,
-        ]);    
+        ]);
     }
 
     /**
@@ -86,7 +86,6 @@ class VehicleTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validated = $request->validate(rules: [
             'name' => 'required|string|max:255',
         ], customAttributes: [
@@ -97,7 +96,6 @@ class VehicleTypeController extends Controller
         $vehicleType->update($validated);
 
         return redirect(route('vehicleTypes.index'))->with('message', 'success');
-
     }
 
     /**
