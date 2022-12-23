@@ -50,7 +50,7 @@ class BrandController extends Controller
 
         Brand::create($validated);
 
-        return redirect(route('brands.index'));
+        return redirect(route('brands.index'))->with('message', 'success');
     }
 
     /**
@@ -99,7 +99,7 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($id);
         $brand->update($validated);
 
-        return redirect(route('brands.index'));
+        return redirect(route('brands.index'))->with('message', 'success');
     }
 
     /**

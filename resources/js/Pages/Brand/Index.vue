@@ -65,6 +65,9 @@
   import "sweetalert2/dist/sweetalert2.css";
   import { useForm } from "@inertiajs/inertia-vue3";
 
+
+
+
   const form = useForm({
         name: "",
         code: "",
@@ -72,7 +75,21 @@
         image: "",
     });
 
-   defineProps(["brands"]);
+   const { brands, flash } = defineProps(["brands", "flash"]);
+
+   if(flash.message == 'success'){
+        Swal.fire({
+            text: 'Feito com Sucesso!',
+            color: 'black',
+            icon: 'success',
+            target: '#custom-target',
+            customClass: {
+                container: 'position-absolute'
+            },
+            toast: true,
+            position: 'bottom-right'
+        })
+   }
 
     function deleteBrands(id) {
         Swal.fire({

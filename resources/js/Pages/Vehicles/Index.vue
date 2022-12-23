@@ -98,7 +98,7 @@
   import Swal from "sweetalert2/dist/sweetalert2";
   import "sweetalert2/dist/sweetalert2.css";
 
-  defineProps(["vehicles"]);
+  const { vehicles, flash } = defineProps(["vehicles", "flash"]);
 
   const form = useForm({
     model: "",
@@ -109,6 +109,20 @@
     version: "",
     user_id: "",
     });
+
+    if(flash.message == 'success'){
+        Swal.fire({
+            text: 'Feito com Sucesso!',
+            color: 'black',
+            icon: 'success',
+            target: '#custom-target',
+            customClass: {
+                container: 'position-absolute'
+            },
+            toast: true,
+            position: 'bottom-right'
+        })
+   }
 
     function deleteVehicle(id) {
         Swal.fire({

@@ -48,7 +48,7 @@ class VehicleTypeController extends Controller
 
         VehicleType::create($validated);
 
-        return redirect(route('vehicleTypes.index'));
+        return redirect(route('vehicleTypes.index'))->with('message', 'success');
     }
 
     /**
@@ -96,7 +96,7 @@ class VehicleTypeController extends Controller
         $vehicleType = VehicleType::findOrFail($id);
         $vehicleType->update($validated);
 
-        return redirect(route('vehicleTypes.index'));
+        return redirect(route('vehicleTypes.index'))->with('message', 'success');
 
     }
 

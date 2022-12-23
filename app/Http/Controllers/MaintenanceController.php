@@ -81,7 +81,7 @@ class MaintenanceController extends Controller
 
         Maintenance::create($validated);
 
-        return redirect(route('maintenances.index'));
+        return redirect(route('maintenances.index'))->with('message', 'success');
     }
 
     /**
@@ -139,7 +139,7 @@ class MaintenanceController extends Controller
         $maintenance = Maintenance::findOrFail($id);
         $maintenance->update($validated);
         
-        return redirect(route('maintenances.index'));
+        return redirect(route('maintenances.index'))->with('message', 'success');
     }
 
     /**

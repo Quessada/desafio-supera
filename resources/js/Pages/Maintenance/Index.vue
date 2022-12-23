@@ -115,7 +115,7 @@
   import { onMounted } from "vue";
   import moment from 'moment';
 
-   defineProps(["maintenances", "vehicles"]);
+   const { maintenances, vehicles, flash } = defineProps(["maintenances", "vehicles", "flash"]);
 
     const form = useForm({
         name: "",
@@ -123,6 +123,20 @@
         price: "",
         image: "",
     });
+
+    if(flash.message == 'success'){
+        Swal.fire({
+            text: 'Feito com Sucesso!',
+            color: 'black',
+            icon: 'success',
+            target: '#custom-target',
+            customClass: {
+                container: 'position-absolute'
+            },
+            toast: true,
+            position: 'bottom-right'
+        })
+   }
 
     function deleteMaintenance(id) {
         Swal.fire({

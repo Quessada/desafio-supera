@@ -65,7 +65,21 @@
         image: "",
     });
 
-   defineProps(["vehicleTypes"]);
+   const { vehicleTypes, flash } = defineProps(["vehicleTypes", "flash"]);
+
+   if(flash.message == 'success'){
+        Swal.fire({
+            text: 'Feito com Sucesso!',
+            color: 'black',
+            icon: 'success',
+            target: '#custom-target',
+            customClass: {
+                container: 'position-absolute'
+            },
+            toast: true,
+            position: 'bottom-right'
+        })
+   }
 
     function deleteVehicleTypes(id) {
         Swal.fire({
