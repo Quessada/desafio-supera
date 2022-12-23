@@ -119,11 +119,7 @@
   import InputLabel from "@/Components/InputLabel.vue";
   import InputError from "@/Components/InputError.vue";
 
-
-  // const user = document.getElementById('user_id').val
-
   const props = defineProps(["vehicle_brands", "vehicle_types", "user"]);
-
 
   const form = useForm({
     model: "",

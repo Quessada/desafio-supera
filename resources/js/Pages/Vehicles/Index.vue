@@ -145,46 +145,4 @@
         });
     }
 
-    // export default {
-    //     components: {
-    //         Header: Header,
-    //         PrimaryButton: PrimaryButton,
-    //     },
-    //     methods: {
-    //         deleteVehicle: 
-    //             function deleteVehicle(id) {
-    //                 Swal.fire({
-    //                     title: "Você tem certeza?",
-    //                     text: "O veículo será excluído definitivamente!",
-    //                     icon: "warning",
-    //                     showCancelButton: true,
-    //                     confirmButtonColor: "#3085d6",
-    //                     cancelButtonText: "Cancelar",
-    //                     confirmButtonText: "Sim, excluir!",
-    //                     }).then((result) => {
-    //                         if (result.value) {
-    //                         form.delete(route("vehicles.destroy", id), {
-    //                             onSuccess: () =>
-    //                             Swal.fire("Excluído", "Veículo removido com sucesso!", "success"),
-    //                             onError: () =>
-    //                             Swal.fire("Falhou!", "Algo de errado aconteceu.", "Warning"),
-    //                         });
-    //                         }
-    //                 });
-    //             }
-    //     },
-    //     setup() {
-
-    //         const { vehicles, getVehicles } = useVehicles()
-
-    //         onMounted(getVehicles)
-
-    //         console.log('vehicles na view = ', vehicles)
-
-    //         return {
-    //             vehicles,
-    //         }
-    //     }
-    // }
-
   </script>

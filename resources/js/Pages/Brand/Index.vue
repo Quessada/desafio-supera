@@ -65,9 +65,6 @@
   import "sweetalert2/dist/sweetalert2.css";
   import { useForm } from "@inertiajs/inertia-vue3";
 
-
-
-
   const form = useForm({
         name: "",
         code: "",

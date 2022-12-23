@@ -88,19 +88,12 @@ function blockDate() {
 
   var formated = dateYesterday.format('yyyy-MM-DD')
 
-  // this.$el.querySelector('input[name="date"]').min = formated;
-
   const dateControl = document.querySelector('input[type="date"]');
 
   dateControl.min = formated;
-
-  // var date = document.querySelector(".date").min();
-
-  console.log(dateControl)
 }
 
   onMounted(blockDate)
-
 
 
 const form = useForm({

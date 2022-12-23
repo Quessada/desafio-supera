@@ -18,14 +18,12 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        // return dd(Auth::user()->id);
         $vehicles = Vehicle::with([
             'user',
             'brand',
             'vehicleType',
         ])->where('user_id', Auth::user()->id)->get();
 
-        // return dd($vehicles);
         return Inertia::render('Vehicles/Index', [
             'vehicles' => $vehicles,
         ]);
@@ -97,11 +95,17 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::findOrFail($id);
 
-        return Inertia::render('Vehicles/Edit', [
-            'vehicle' => $vehicle,
-            'vehicle_types' => VehicleType::all(),
-            'vehicle_brands' => Brand::orderBy('name')->get(),
-        ]);
+        //Verifica se o veículo é realmente do usuário para caso dele
+        //tentar acessar outra rota
+        if ($vehicle->user_id == Auth::user()->id) {
+            return Inertia::render('Vehicles/Edit', [
+                'vehicle' => $vehicle,
+                'vehicle_types' => VehicleType::all(),
+                'vehicle_brands' => Brand::orderBy('name')->get(),
+            ]);
+        } else {
+            return redirect(route('vehicles.index'));
+        }
     }
 
     /**

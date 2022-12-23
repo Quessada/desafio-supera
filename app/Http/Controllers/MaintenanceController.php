@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Maintenance;
 use App\Models\Vehicle;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -23,13 +22,6 @@ class MaintenanceController extends Controller
 
         $vehicles = Vehicle::with(['brand', 'vehicleType'])->get();
 
-        // return response()->json(['data'=> $maintenance, 'vehicle' => $vehicle])
-        // return dd($maintenances);
-
-        $dateNow = Carbon::now();
-
-        // return dd($maintenances);
-
         return Inertia::render('Maintenance/Index', [
             'maintenances' => $maintenances,
             'vehicles' => $vehicles,
@@ -43,9 +35,6 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        // return
-        // return dd($vehicles = Vehicle::with('maintenance')->where('id', 'vehicle_id')->toSql());
-
         $vehicles = Vehicle::with([
             'user',
             'brand',
@@ -106,12 +95,16 @@ class MaintenanceController extends Controller
 
         $vehicles = Vehicle::with('user')->where('user_id', Auth::user()->id)->get();
 
-        // return dd($maintenance);
-
-        return Inertia::render('Maintenance/Edit', [
-            'vehicles' => $vehicles,
-            'maintenance' => $maintenance,
-        ]);
+        //Verifica se a manutenção é realmente do usuário para caso dele
+        //tentar acessar outra rota
+        if ($maintenance->user_id == Auth::user()->id) {
+            return Inertia::render('Maintenance/Edit', [
+                'vehicles' => $vehicles,
+                'maintenance' => $maintenance,
+            ]);
+        } else {
+            return redirect(route('maintenances.index'));
+        }
     }
 
     /**
