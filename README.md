@@ -52,5 +52,10 @@ email: admin@admin.com
 
 senha: admin1234
 
+## Rotas de Acesso
+
+Entrar: /login
+
+Criar usuário: /register
 
 
