@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('model');
             $table->string('version');
             $table->string('plate')->nullable();
-            $table->foreign('brand_id')->references('id')->on('brands');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('type_id')->references('id')->on('vehicle_types');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('type_id')->references('id')->on('vehicle_types')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

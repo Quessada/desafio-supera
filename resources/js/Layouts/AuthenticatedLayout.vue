@@ -4,24 +4,27 @@
       <div class="flex-1 flex flex-col overflow-hidden">
         <Header />
   
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-          <div class="container mx-auto px-6 py-8">
-
-            
-
-            <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-                
+          <div class="py-12">
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 text-white rounded-lg">
+                Seja bem-vindo a SUPERA INOVAÇÃO EM TECNOLOGIA!
+                  
+                <div class="px-4 py-5 justify-content align-items content-center">
+                    <img
+                    src="/images/logo-supera.svg"
+                    alt="logo"
+                    style="width= 150px; height:100px;"
+                  />
+                </div>
             </div>
-
           </div>
-        </main>
+        </div>
       </div>
     </div>
   </template>
   
   <script setup lang="ts">
-  import PrimaryButton from "@/Components/PrimaryButton.vue";
-  import NavLink from "@/Components/NavLink.vue";
+
   import { useForm, Head } from "@inertiajs/inertia-vue3";
 
   import Header from "../Components/Header.vue";

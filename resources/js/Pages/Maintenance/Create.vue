@@ -52,7 +52,7 @@
         
           <div class="mt-4">
               <InputLabel for="date" value="Data da Manutenção" />
-              <input type="date" v-model="form.date" name="date" id="date">
+              <input type="date" v-model="form.date" name="date" id="date" min="">
               <InputError class="mt-2" :message="form.errors.date" />
           </div>
 
@@ -74,9 +74,32 @@ import { useForm, Head, useRemember } from "@inertiajs/inertia-vue3";
 import Header from "../../Components/Header.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import moment from "moment";
+import { onMounted } from "vue";
 
 
 const props = defineProps(["vehicles", "user"]);
+
+//Bloqueia as datas anteriores
+function blockDate() {        
+  var dateNow = moment()
+  var dateYesterday = moment(dateNow).subtract(0, 'days')
+
+  var formated = dateYesterday.format('yyyy-MM-DD')
+
+  // this.$el.querySelector('input[name="date"]').min = formated;
+
+  const dateControl = document.querySelector('input[type="date"]');
+
+  dateControl.min = formated;
+
+  // var date = document.querySelector(".date").min();
+
+  console.log(dateControl)
+}
+
+  onMounted(blockDate)
+
 
 
 const form = useForm({

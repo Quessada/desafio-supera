@@ -112,7 +112,10 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $maintenance = Maintenance::findOrFail($id);
+        $maintenance->update($request->all());
+        
+        return redirect(route('maintenances.index'));
     }
 
     /**

@@ -24,7 +24,7 @@
         ">
         <form
         @submit.prevent="
-          form.post(route('maintenances.store'), {
+          form.post(route('maintenances.update', maintenance.id), {
             onSuccess: () => form.reset(),
           })
         ">
@@ -56,7 +56,7 @@
               <InputError class="mt-2" :message="form.errors.date" />
           </div>
 
-          <PrimaryButton class="mt-4">Criar</PrimaryButton>
+          <PrimaryButton class="mt-4">Alterar</PrimaryButton>
 
         </form>
         
@@ -75,19 +75,36 @@ import Header from "../../Components/Header.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import moment from "moment";
+import { onMounted } from "vue";
 
 
 const props = defineProps(["vehicles", "maintenance"]);
 
+//Corrige a data para mostrar no input type date
 const formatDate = (date) => {
-        return moment(date).format('DD/MM/YY');
-    }
+      return moment(date).format('yyyy-MM-DD')
+}
+
+//Bloqueia as datas anteriores
+function blockDate() {        
+  var dateNow = moment()
+  var dateYesterday = moment(dateNow).subtract(0, 'days')
+
+  var formated = dateYesterday.format('yyyy-MM-DD')
+
+  const dateControl = document.querySelector('input[type="date"]');
+
+  dateControl.min = formated;
+}
+
+  onMounted(blockDate)
 
 const form = useForm({
   description: props.maintenance.description,
   vehicle_id: props.maintenance.vehicle_id,
   user_id: props.maintenance.user_id,
-  date: props.maintenance.date,
+  date: formatDate(props.maintenance.date),
+  _method: "PUT",
 });
 
 

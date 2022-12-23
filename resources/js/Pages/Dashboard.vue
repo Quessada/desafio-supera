@@ -18,5 +18,6 @@ import { Head } from '@inertiajs/inertia-vue3';
                 </div>
             </div>
         </div>
+        
     </AuthenticatedLayout>
 </template>

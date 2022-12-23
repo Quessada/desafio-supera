@@ -22,7 +22,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('Dashboard', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -40,14 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('vehicles', VehicleController::class)->middleware(['auth']);
-
-Route::resource('maintenances', MaintenanceController::class)->middleware(['auth']);
-
-Route::resource('brands', BrandController::class)->middleware(['auth']);
-
-Route::resource('vehicleTypes', VehicleTypeController::class)->middleware(['auth']);
-
+Route::middleware('auth')->group(function () {
+    Route::resource('vehicles', VehicleController::class);
+    Route::resource('maintenances', MaintenanceController::class);
+    Route::resource('brands', BrandController::class);
+    Route::resource('vehicleTypes', VehicleTypeController::class);
+});
 
 
 Route::resource('users', UserController::class)->middleware(['auth']);
